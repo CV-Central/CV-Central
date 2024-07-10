@@ -1,0 +1,32 @@
+@model CV_Central.ViewModels.UserVM;
+@{
+    Layout = null;
+}
+
+<body>
+    <div class="row mt-5 justify-content-center">
+        <div class="col-sm-4">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Iniciar sesión</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="" asp-action="" method="post">
+                        <input class="form-control mb-3" type="text" placeholder="Nombre" asp-for="Name" required>
+                        <div class="d-grid gap-2 mb-3">
+                            <button class="btn btn-primary">Iniciar sesion</button>
+                        </div>
+
+                        @if(ViewData[Mensaje]!= null){
+                            <div class="alert alert-danger" role="alert">
+                                @ViewData[Mensaje]
+                            </div>
+                        }
+                        <h4>¿Ya tienes una cuenta?</h4><a asp-controller="UserAccess" asp-action="LogIn">Iniciar Sesion</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>

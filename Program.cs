@@ -13,6 +13,9 @@ builder.Services.AddDbContext<CVCentralContext>(options =>
 
 var app = builder.Build();
 
+/* Services */
+builder.Services.AddScoped<UserRepository>();
+
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
