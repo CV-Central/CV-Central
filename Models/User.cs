@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace CV_Central.Models{
     public class User{
         /* ------- */
