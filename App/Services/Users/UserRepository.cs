@@ -2,12 +2,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CV_Central.Data;
+using CV_Central.Context;
 using CV_Central.Models;
 using Microsoft.EntityFrameworkCore;
-using CV_Central.ViewModels;
 
-namespace CV_Central.App.Services
+namespace CV_Central.App.Services.Users
 {
     public class UserRepository
     {
@@ -19,13 +18,13 @@ namespace CV_Central.App.Services
 
         /* SignIn: POST */
         /* Verificar que Password y ConfirmPassword coincidan y que el usuario se haya creado */
-        public async Task<bool> CreateUser(User user){
+        public async Task<bool> CreateUser(User userRegister){
             /* Agregar y guardar los adatos */
-            await _context.Users.AddAsync(user);
+            await _context.Users.AddAsync(userRegister);
             await _context.SaveChangesAsync();
 
             /* Combrobar si el usuario fue creado */
-            return user.Id != 0;
+            return userRegister.Id != 0;
         }
 
 

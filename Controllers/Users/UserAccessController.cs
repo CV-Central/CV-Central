@@ -1,7 +1,9 @@
-using CV_Central.Data;
+using CV_Central.Context;
 using CV_Central.Models;
+using CV_Central.App.Services.Users;
 using Microsoft.EntityFrameworkCore;
-using CV_Central.ViewModels;
+using Microsoft.AspNetCore.Mvc;
+using System.Threading.Tasks;
 
 namespace CV_Central.Controllers{
     public class UserAccessController : Controller{
@@ -10,6 +12,8 @@ namespace CV_Central.Controllers{
         public UserAccessController(UserRepository userRepository){
             _userRepository = userRepository;
         }
+
+        //UserRepository obj = new UserRepository();
 
         /* Función para el login "GET" */
         [HttpGet]
@@ -20,26 +24,26 @@ namespace CV_Central.Controllers{
 
         /* Función para el login "POST" */
         [HttpPost]
-        public async Task<IActionResult> SignIn(UserVM userVM){
+        public async Task<IActionResult> SignIn(User userRegister){
             /* Confirmar contraseña */
-            if (userVM.Password != userVM.ConfirmPassword)
+            /* if (userRegister.Email == userRegister.ConfirmPassword)
             {
                 ViewData["Mensaje"] = "Las contraseñas no coinciden";
                 return View();
-            }
+            } */
 
             /* Formar un nuevo usuario con los daros entrantes */
             var user = new User()
             {
-                Name = userVM.Name,
-                Age = userVM.Age,
-                Email = userVM.Email,
-                Password = userVM.Password,
-                Phone = userVM.Phone,
-                Address = userVM.Address,
-                Image = userVM.Image,
+                Name = userRegister.Name,
+                Age = userRegister.Age,
+                Email = userRegister.Email,
+                Password = userRegister.Password,
+                Phone = userRegister.Phone,
+                Address = userRegister.Address,
+                Image = userRegister.Image,
                 CreateAt = DateTime.Now,
-                UpdateAt = DataType.Now,
+                UpdateAt = DateTime.Now,
             };
 
            /* Llamar a la funcion del services */

@@ -6,15 +6,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+builder.services.
+
 //Add services to connect at the database
 builder.Services.AddDbContext<CVCentralContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.20-mysql")));
 
 
 var app = builder.Build();
-
-/* Services */
-builder.Services.AddScoped<UserRepository>();
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
