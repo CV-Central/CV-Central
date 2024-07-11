@@ -1,10 +1,17 @@
 using CV_Central.Context;
 using Microsoft.EntityFrameworkCore;
+using CV_Central.App.Services;
+using CV_Central.Context;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddTransient<UserRepository>();
 
 //Add services to connect at the database
 builder.Services.AddDbContext<CVCentralContext>(options =>
@@ -26,6 +33,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+/* Autenticación */
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllerRoute(
