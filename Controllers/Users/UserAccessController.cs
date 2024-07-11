@@ -4,6 +4,9 @@ using CV_Central.App.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace CV_Central.Controllers{
     public class UserAccessController : Controller{
@@ -17,6 +20,10 @@ namespace CV_Central.Controllers{
         [HttpGet]
         public IActionResult SignUp()
         {
+             /* Si el usuario todavia esta autenticado y no ha cerrado sesion, al abrir la página volvera a la página principal */
+            if(User.Identity!.IsAuthenticated){
+                return RedirectToAction("Index", "Home");
+            }
             return View();
         }
 
@@ -62,6 +69,58 @@ namespace CV_Central.Controllers{
             ViewData["Mensaje"] = "¡Error!, No se creó el usuario";
             return View();
         }
+
+        /* Función para Iniciar sesion "GET" */
+        [HttpGet]
+        public IActionResult LogIn()
+        {
+            /* Si el usuario todavia esta autenticado y no ha cerrado sesion, al abrir la página volvera a la página principal */
+            if(User.Identity!.IsAuthenticated){
+                return RedirectToAction("Index", "Home");
+            }
+            return View();
+        }
+
+        /* Función para Iniciar sesion "POST" */
+        [HttpPost]
+        public async Task<IActionResult> LogIn(User userLogIn){
+            /* Encontrar al usuario con los datos ingresados con la funcion de Services */
+            var foundUser = await _userRepository.GetUser(userLogIn);
+            if(foundUser == null){
+                ViewData["ErrorMessage"] = "¡Los datos no coinciden con los de algún usuario!";
+                return View();
+            }
+
+            /* Guardar los datos del usuario que inico sesion. En este caso el nombre del usuario */
+            List<Claim>claims = new List<Claim>(){
+                new Claim(ClaimTypes.Name, foundUser.Name)
+            };
+
+            /* Crear un nuevo ClaimsIdentity en el que a traves de "claims" le pasaremos los datos que guardamos anteriormente(Name) */
+            ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            AuthenticationProperties properties = new AuthenticationProperties(){
+                /* Refercar la sesion del usuario */
+                AllowRefresh = true,
+            };
+
+            await HttpContext.SignInAsync(
+                /* Utilizar el esquema de autenticaion por Cookie */
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                /* Pasarle el ClaimsIdentity que creamos anteriormente */
+                new ClaimsPrincipal(claimsIdentity),
+                properties
+            );
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        /* Función para SALIR y cerrar sesion */
+        public async Task<IActionResult> LogOut(){
+            /* SignOutAsync: Eliminar Cookies de autenticación */
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("LogIn", "UserAccess");
+        }
+
     
     }
 } 

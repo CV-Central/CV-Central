@@ -33,6 +33,12 @@ namespace CV_Central.App.Services
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
 
+        /* LogIn: POST */
+        /* Encontrar al usuario que inicia sesion */
+        public async Task<User> GetUser(User user){
+            return await _context.Users.Where(u => u.Email == user.Email && u.Password == user.Password).FirstOrDefaultAsync();
+        }
+
 
 
     }

@@ -2,8 +2,13 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using CV_Central.Models;
 
+/* using para el [Authorize] */
+using Microsoft.AspNetCore.Authorization;
+
 namespace CV_Central.Controllers;
 
+/* Usamos este atributo para restringir el acceso de este controlador y sus funciones */
+[Authorize]
 public class HomeController : Controller
 {
     private readonly ILogger<HomeController> _logger;
