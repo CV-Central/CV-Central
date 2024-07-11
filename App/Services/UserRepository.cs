@@ -6,7 +6,7 @@ using CV_Central.Context;
 using CV_Central.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace CV_Central.App.Services.Users
+namespace CV_Central.App.Services
 {
     public class UserRepository
     {
@@ -16,16 +16,23 @@ namespace CV_Central.App.Services.Users
             _context = context;
         }
 
-        /* SignIn: POST */
-        /* Verificar que Password y ConfirmPassword coincidan y que el usuario se haya creado */
+        /* SignUp: POST */
+        /* Comprobar que el usuario se haya creado en la base ddatos */
         public async Task<bool> CreateUser(User userRegister){
-            /* Agregar y guardar los adatos */
+            /* Agregar y guardar los datos */
             await _context.Users.AddAsync(userRegister);
             await _context.SaveChangesAsync();
 
             /* Combrobar si el usuario fue creado */
             return userRegister.Id != 0;
         }
+        
+        /* SignUp: POST */
+        /* Verificar la existencia del usuario */
+        public async Task<User> GetUserByEmail(string email){
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
 
 
     }

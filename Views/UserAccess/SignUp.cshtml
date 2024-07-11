@@ -3,6 +3,7 @@
     Layout = null;
 }
 
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
 <body>
     <div class="row mt-5 justify-content-center">
         <div class="col-sm-4">
@@ -11,12 +12,18 @@
                     <h2>Iniciar sesión</h2>
                 </div>
                 <div class="card-body">
-                    <form asp-controller="UserAccessController" asp-action="SignIn" method="post">
+                    <form asp-controller="UserAccess" asp-action="SignUp" method="post">
                         <input class="form-control mb-3" type="text" placeholder="Nombre" asp-for="Name" required>
+                        <input class="form-control mb-3" type="text" placeholder="Edad" asp-for="Age" required>
+                        <input class="form-control mb-3" type="text" placeholder="Correo" asp-for="Email" required>
+                        <input class="form-control mb-3" type="text" placeholder="Contraseña" asp-for="Password" required>
+                        <input class="form-control mb-3" type="text" placeholder="Telefono" asp-for="Phone">
+                        <input class="form-control mb-3" type="text" placeholder="Dirección" asp-for="Address" required>
                         <div class="d-grid gap-2 mb-3">
                             <button class="btn btn-primary">Iniciar sesion</button>
                         </div>
 
+                        @* Mostrar el mensaje si ocurre algun error *@
                         @if(ViewData["Mensaje"]!= null){
                             <div class="alert alert-danger" role="alert">
                                 @ViewData["Mensaje"]
@@ -29,4 +36,7 @@
         </div>
 
     </div>
+     <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
 </body>

@@ -1,6 +1,6 @@
 using CV_Central.Context;
 using CV_Central.Models;
-using CV_Central.App.Services.Users;
+using CV_Central.App.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
@@ -13,26 +13,28 @@ namespace CV_Central.Controllers{
             _userRepository = userRepository;
         }
 
-        //UserRepository obj = new UserRepository();
-
-        /* Función para el login "GET" */
+        /* Función para el registro "GET" */
         [HttpGet]
-        public IActionResult SignIn()
+        public IActionResult SignUp()
         {
             return View();
         }
 
-        /* Función para el login "POST" */
+        /* Función para el registro "POST" */
         [HttpPost]
-        public async Task<IActionResult> SignIn(User userRegister){
-            /* Confirmar contraseña */
-            /* if (userRegister.Email == userRegister.ConfirmPassword)
-            {
-                ViewData["Mensaje"] = "Las contraseñas no coinciden";
-                return View();
-            } */
+        public async Task<IActionResult> SignUp(User userRegister)
+        {
+            // Verificar si ya existe un usuario con el mismo correo electrónico
+            var foundUser = await _userRepository.GetUserByEmail(userRegister.Email);
 
-            /* Formar un nuevo usuario con los daros entrantes */
+            if (foundUser != null)
+            {
+                // Si el usuario ya existe, enviar un mensaje de error
+                ViewData["Mensaje"] = "El correo electrónico ya está registrado.";
+                return View();
+            }
+
+            // Formar un nuevo usuario con los datos entrantes
             var user = new User()
             {
                 Name = userRegister.Name,
@@ -41,23 +43,25 @@ namespace CV_Central.Controllers{
                 Password = userRegister.Password,
                 Phone = userRegister.Phone,
                 Address = userRegister.Address,
-                Image = userRegister.Image,
+                Image = null,
+                Status = "ACTIVE",
                 CreateAt = DateTime.Now,
                 UpdateAt = DateTime.Now,
             };
 
-           /* Llamar a la funcion del services */
+            // Llamar a la función del servicio para crear el usuario
             var userCreated = await _userRepository.CreateUser(user);
 
-            /* Si el usuario se creo redireccionar al Login */
-            if(userCreated){
+            // Si el usuario se creó, redireccionar al Login
+            if (userCreated)
+            {
                 return RedirectToAction("Login", "Acceso");
             }
 
-            /* Si no se creo mandar el mensaje */
+            // Si no se creó, enviar un mensaje de error
             ViewData["Mensaje"] = "¡Error!, No se creó el usuario";
             return View();
         }
     
     }
-}
+} 
