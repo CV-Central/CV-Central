@@ -43,7 +43,6 @@ namespace CV_Central.Controllers{
                 Password = userRegister.Password,
                 Phone = userRegister.Phone,
                 Address = userRegister.Address,
-                Image = null,
                 Status = "ACTIVE",
                 CreateAt = DateTime.Now,
                 UpdateAt = DateTime.Now,
