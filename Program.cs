@@ -21,7 +21,8 @@ builder.Services.AddDbContext<CVCentralContext>(options =>
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>{
         options.LoginPath = "/UserAccess/LogIn";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+        options.LogoutPath = "/UserAccess/LogOut";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     });
 
 var app = builder.Build();
@@ -39,6 +40,14 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Evitar caché del navegador
+app.Use(async (context, next) =>
+{
+    context.Response.Headers["Cache-Control"] = "no-cache, no-store, must-revalidate";
+    context.Response.Headers["Pragma"] = "no-cache";
+    context.Response.Headers["Expires"] = "-1";
+    await next();
+});
 /* Autenticación */
 app.UseAuthentication();
 app.UseAuthorization();
