@@ -61,7 +61,7 @@ namespace CV_Central.Controllers{
             // Si el usuario se creó, redireccionar al Login
             if (userCreated)
             {
-                return RedirectToAction("Login", "Acceso");
+                return RedirectToAction("Login", "UserAccess");
             }
 
             // Si no se creó, enviar un mensaje de error
@@ -90,11 +90,14 @@ namespace CV_Central.Controllers{
                 return View();
             }
 
-            /* Guardar los datos del usuario que inico sesion. En este caso el nombre del usuario */
+            /* Claim: Es una declaracion acerca de un sujeto. Es una pieza de información acerca del usuario */
+            /* Crear un Claim y guardar el nombre del usuario que inicio sesion */
             List<Claim>claims = new List<Claim>(){
+                /* Identificador estándar que indica que claim contiene el nombre del usuario */
                 new Claim(ClaimTypes.Name, foundUser.Name)
             };
 
+            /* ClaimsIdentity: Es una colección de Claims que describen la identidad del usuario */
             /* Crear un nuevo ClaimsIdentity en el que a traves de "claims" le pasaremos los datos que guardamos anteriormente(Name) */
             ClaimsIdentity claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
             AuthenticationProperties properties = new AuthenticationProperties(){

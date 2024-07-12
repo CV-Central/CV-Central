@@ -3,8 +3,10 @@ using Microsoft.AspNetCore.Mvc;
 using CV_Central.Models;
 
 /* using para el [Authorize] */
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
-
 namespace CV_Central.Controllers;
 
 /* Usamos este atributo para restringir el acceso de este controlador y sus funciones */
