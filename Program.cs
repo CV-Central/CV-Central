@@ -1,4 +1,6 @@
+using CV_Central.App.Services;
 using CV_Central.Context;
+using CV_Central.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,9 @@ builder.Services.AddControllersWithViews();
 //Add services to connect at the database
 builder.Services.AddDbContext<CVCentralContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.20-mysql")));
+
+builder.Services.Configure<Email>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddTransient< EmailRepository>();
 
 
 var app = builder.Build();
