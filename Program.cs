@@ -1,4 +1,6 @@
+using CV_Central.App.Services;
 using CV_Central.Context;
+using CV_Central.Models;
 using Microsoft.EntityFrameworkCore;
 using CV_Central.App.Services;
 using CV_Central.Context;
@@ -24,6 +26,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LogoutPath = "/UserAccess/LogOut";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     });
+builder.Services.Configure<Email>(builder.Configuration.GetSection("EmailSettings"));
+builder.Services.AddTransient< EmailRepository>();
+
 
 var app = builder.Build();
 

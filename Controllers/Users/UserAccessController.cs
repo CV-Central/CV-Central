@@ -11,9 +11,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 namespace CV_Central.Controllers{
     public class UserAccessController : Controller{
         private readonly UserRepository _userRepository;
+        private readonly EmailRepository _emailrepository;
 
-        public UserAccessController(UserRepository userRepository){
+        public UserAccessController(UserRepository userRepository, EmailRepository emailRepository){
             _userRepository = userRepository;
+            _emailrepository = emailRepository;
         }
 
         /* Función para el registro "GET" */
@@ -58,9 +60,12 @@ namespace CV_Central.Controllers{
             // Llamar a la función del servicio para crear el usuario
             var userCreated = await _userRepository.CreateUser(user);
 
-            // Si el usuario se creó, redireccionar al Login
+            // Si el usuario se creó, enviar el correo de confirmacion y redireccionar al Login
             if (userCreated)
             {
+                var subject = "¡Te has registrado a CV Central!";
+                var mensajeUser = $"Bienvenid@ a CVCentral {user.Name}\nTu registro se completo correctamente, ya eres uno de nuestro usuarios.";
+                _emailrepository.ConfirmRegistration(user.Email, subject, mensajeUser, user);
                 return RedirectToAction("Login", "UserAccess");
             }
 
