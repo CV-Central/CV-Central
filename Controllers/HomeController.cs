@@ -1,6 +1,8 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using CV_Central.Models;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace CV_Central.Controllers;
 
@@ -13,8 +15,27 @@ public class HomeController : Controller
         _logger = logger;
     }
 
-    public IActionResult Index()
+    public async Task<IActionResult> IndexAsync()
     {
+        var claims = User.Claims.ToList();
+        Console.WriteLine(claims.Count);
+        foreach (var item in claims)
+        {
+            Console.WriteLine(item);
+        }
+        var email = User.FindFirstValue(ClaimTypes.Email);
+
+        ViewData["Email"] = email;
+
+        var authResult = await HttpContext.AuthenticateAsync();
+        //Console.WriteLine(authResult.Succeeded);
+        if (authResult.Succeeded){
+        //var accessToken = authResult.Properties.GetTokenValue("access_token");
+        var pictureUrlClaim = authResult.Principal.FindFirst("urn:google:picture");
+        var pictureUrl = pictureUrlClaim?.Value;
+        Console.WriteLine(pictureUrl);
+        Console.WriteLine("hola");
+        }
         return View();
     }
 
