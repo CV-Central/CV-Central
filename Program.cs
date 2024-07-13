@@ -28,7 +28,7 @@ builder.Services.AddAuthentication(options =>
 {
     options.ClientId = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID");
     options.ClientSecret =  Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET");
-    options.SaveTokens = true; // Asegúrate de que esta línea esté presente para guardar los tokens
+    options.SaveTokens = true;
     options.ClaimActions.MapJsonKey(ClaimTypes.Email, "email");
     options.ClaimActions.MapJsonKey(ClaimTypes.Name, "name");
     options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
