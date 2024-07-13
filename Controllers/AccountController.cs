@@ -10,10 +10,17 @@ public class AccountController : Controller
     }
 
     [HttpGet("~/signin")]
-    public IActionResult SignIn()
+    public async Task<IActionResult> SignInAsync()
     {
         var authenticationProperties = new AuthenticationProperties { RedirectUri = "/" };
+        var authResult = await HttpContext.AuthenticateAsync();
+
+        if (authResult?.Succeeded != true)
+        {
+            return Challenge(authenticationProperties, CookieAuthenticationDefaults.AuthenticationScheme);
+        }
         return Challenge(authenticationProperties, GoogleDefaults.AuthenticationScheme);
+
     }
 
     [HttpGet("~/signout")]

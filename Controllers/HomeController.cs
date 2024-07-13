@@ -34,7 +34,6 @@ public class HomeController : Controller
         var pictureUrlClaim = authResult.Principal.FindFirst("urn:google:picture");
         var pictureUrl = pictureUrlClaim?.Value;
         Console.WriteLine(pictureUrl);
-        Console.WriteLine("hola");
         }
         return View();
     }
