@@ -26,7 +26,7 @@ namespace CV_Central.Controllers.Recuperacion
         var user = _context.Users.FirstOrDefault(e => e.Email == email);
         if(user != null){
 
-                var subject = "¡Recuperacion de contraseña | CV Central!";
+                var subject = "¡Recuperacion de contraseña! | CV Central";
                 var mensajeUser = $"Hola, {user.Name}\nEsta es tu contraseña: {user.Password}.";
                 _emailrepository.SendEmail( user.Email, subject, mensajeUser, user);
                 Console.WriteLine("hols" + email);
