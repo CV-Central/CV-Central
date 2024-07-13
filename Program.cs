@@ -2,9 +2,6 @@ using CV_Central.App.Services;
 using CV_Central.Context;
 using CV_Central.Models;
 using Microsoft.EntityFrameworkCore;
-using CV_Central.App.Services;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,8 +22,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.LogoutPath = "/UserAccess/LogOut";
         options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
     });
+
 builder.Services.Configure<Email>(builder.Configuration.GetSection("EmailSettings"));
-builder.Services.AddTransient< EmailRepository>();
+builder.Services.AddTransient<EmailRepository>();
 
 
 var app = builder.Build();

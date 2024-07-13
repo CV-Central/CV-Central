@@ -18,7 +18,7 @@ namespace CV_Central.App.Services
     {
         private readonly Email _emailSettings;
 
-          public EmailRepository(IOptions<Email> emailSettings)
+        public EmailRepository(IOptions<Email> emailSettings)
         {
             _emailSettings = emailSettings.Value;
         }
@@ -29,7 +29,7 @@ namespace CV_Central.App.Services
             emailMessage.From.Add(new MailboxAddress(_emailSettings.SenderName, _emailSettings.SenderEmail));
             emailMessage.To.Add(new MailboxAddress("", Email));
             emailMessage.Subject = subject;
-            emailMessage.Body = new TextPart("plain") { Text =$"Hola, {user.Name},\nESta es tu contraseña {user.Password}." };
+            emailMessage.Body = new TextPart("plain") { Text =$"Hola, {user.Name},\nEsta es tu contraseña {user.Password}." };
 
             using (var client = new MailKit.Net.Smtp.SmtpClient())
             {
