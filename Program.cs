@@ -1,12 +1,14 @@
+using System.Security.Claims;
+using DotNetEnv;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using CV_Central.App.Services;
 using CV_Central.Context;
 using CV_Central.Models;
 using Microsoft.EntityFrameworkCore;
-using CV_Central.App.Services;
-using CV_Central.Context;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
+
+Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,21 +16,30 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddTransient<UserRepository>();
+builder.Services.AddTransient<EmailRepository>();
+builder.Services.AddTransient<AccountRepository>();
 
 //Add services to connect at the database
 builder.Services.AddDbContext<CVCentralContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.20-mysql")));
 
-/* Configuracion de cookies */
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie(options =>{
-        options.LoginPath = "/UserAccess/LogIn";
-        options.LogoutPath = "/UserAccess/LogOut";
-        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
-    });
-builder.Services.Configure<Email>(builder.Configuration.GetSection("EmailSettings"));
-builder.Services.AddTransient< EmailRepository>();
-
+//Add services to obtain credentials for authentication and authorization from google provider
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+})
+.AddCookie()
+.AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
+{
+    options.ClientId = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID");
+    options.ClientSecret =  Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET");
+    options.SaveTokens = true;
+    options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
+    options.ClaimActions.MapJsonKey("urn:google:sub", "sub", "string");
+    
+});
 
 var app = builder.Build();
 
@@ -45,6 +56,7 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseAuthentication();
 // Evitar caché del navegador
 app.Use(async (context, next) =>
 {
