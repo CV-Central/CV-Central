@@ -8,6 +8,7 @@ using CV_Central.Context;
 using CV_Central.Models;
 using Microsoft.EntityFrameworkCore;
 
+
 Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +23,7 @@ builder.Services.AddTransient<AccountRepository>();
 //Add services to connect at the database
 builder.Services.AddDbContext<CVCentralContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.20-mysql")));
+
 
 //Add services to obtain credentials for authentication and authorization from google provider
 builder.Services.AddAuthentication(options =>

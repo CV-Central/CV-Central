@@ -3,14 +3,14 @@
 }
 @using System.Security.Claims;
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "CV Central";
 }
 
 <div class="text-center">
     @* Si hay un usuario que esta autenticado mostrar su nombre *@
     @if(User.Identity!.IsAuthenticated){
         @* Llamar el Claims que antes habia definido dentro de ClaimTypes, que fue el nombre en la función LogIn y devolverlo con Select *@
-        <h1 class="display-4">Bienvenido
+        <h1 class="display-4 mt-5">Bienvenido
         @User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault()
         </h1>
 
