@@ -1,4 +1,7 @@
-﻿@using System.Security.Claims;
+﻿        @{
+    var pictureUrl = ViewBag.PictureUrl as string;
+}
+@using System.Security.Claims;
 @{
     ViewData["Title"] = "CV Central";
 }
@@ -10,5 +13,32 @@
         <h1 class="display-4 mt-5">Bienvenido
         @User.Claims.Where(c => c.Type == ClaimTypes.Name).Select(c => c.Value).SingleOrDefault()
         </h1>
+
+        
+
+@if (!string.IsNullOrEmpty(pictureUrl))
+{
+    <img src="@pictureUrl" alt="Profile Picture" />
+}
+else
+{
+    <p>No profile picture available.</p>
+}
     }
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
+
+@* @{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+</div> *@
+@{
+    var user = (ClaimsPrincipal)User;
+    var email = user.FindFirst(ClaimTypes.Email)?.Value;
+}
+
+<p>Correo electrónico: @User.Claims.Where(c => c.Type == ClaimTypes.Email).Select(c => c.Value).SingleOrDefault()</p>
