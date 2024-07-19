@@ -10,28 +10,28 @@ using Org.BouncyCastle.Bcpg;
 namespace CV_Central.Controllers.Recuperacion
 {
     public class PasswordRecovery : Controller {
-       public readonly CVCentralContext _context;
-       private readonly EmailRepository _emailrepository;
+        public readonly CVCentralContext _context;
+        private readonly EmailRepository _emailrepository;
 
 
-       public PasswordRecovery(CVCentralContext context, EmailRepository emailRepository){
+        public PasswordRecovery(CVCentralContext context, EmailRepository emailRepository){
         _context = context;
         _emailrepository = emailRepository;
-       }
+        }
 
-       public IActionResult Index(){
+        public IActionResult Index(){
         return View();
-       }
-       public void Recovery(string email) {
+        }
+        public void Recovery(string email) {
         var user = _context.Users.FirstOrDefault(e => e.Email == email);
         if(user != null){
 
-                var subject = "recuperacion de contraseña";
-                var mensajeUser = $"Hola, {user.Name},\nEsta es tu contraseña: {user.Password}.";
-                _emailrepository.SendEmail( user.Email, mensajeUser, subject, user);
+                var subject = "¡Recuperacion de contraseña! | CV Central";
+                var mensajeUser = $"Hola, {user.Name}\nEsta es tu contraseña: {user.Password}.";
+                _emailrepository.SendEmail( user.Email, subject, mensajeUser, user);
                 Console.WriteLine("hols" + email);
         }
-       }
+        }
     }
     
 }

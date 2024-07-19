@@ -1,11 +1,10 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using CV_Central.Models;
+using Microsoft.AspNetCore.Authentication;
 
 /* using para el [Authorize] */
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 
 namespace CV_Central.Controllers{
@@ -20,9 +19,16 @@ namespace CV_Central.Controllers{
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> IndexAsync()
         {
-            return View();
+        var authResult = await HttpContext.AuthenticateAsync();
+        if (authResult.Succeeded){
+            var user = User.Identity as ClaimsIdentity;
+            var pictureClaim = user?.FindFirst("urn:google:picture")?.Value;
+        
+            ViewBag.PictureUrl = pictureClaim;
+        }
+        return View();
         }
 
         public IActionResult Privacy()
