@@ -99,7 +99,8 @@ namespace CV_Central.Controllers{
             /* Crear un Claim y guardar el nombre del usuario que inicio sesion */
             List<Claim>claims = new List<Claim>(){
                 /* Identificador estándar que indica que claim contiene el nombre del usuario */
-                new Claim(ClaimTypes.Name, foundUser.Name)
+                new Claim(ClaimTypes.Name, foundUser.Name),
+                new Claim(ClaimTypes.NameIdentifier, foundUser.Id.ToString())
             };
 
             /* ClaimsIdentity: Es una colección de Claims que describen la identidad del usuario */
@@ -117,7 +118,7 @@ namespace CV_Central.Controllers{
                 new ClaimsPrincipal(claimsIdentity),
                 properties
             );
-
+            
             return RedirectToAction("Index", "Home");
         }
 
