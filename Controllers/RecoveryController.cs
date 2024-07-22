@@ -22,7 +22,7 @@ namespace CV_Central.Controllers.Recuperacion
         public IActionResult Index(){
         return View();
         }
-        public void Recovery(string email) {
+        public async Task<IActionResult> Recovery(string email) {
         var user = _context.Users.FirstOrDefault(e => e.Email == email);
         if(user != null){
 
@@ -30,7 +30,10 @@ namespace CV_Central.Controllers.Recuperacion
                 var mensajeUser = $"Hola, {user.Name}\nEsta es tu contraseña: {user.Password}.";
                 _emailrepository.SendEmail( user.Email, subject, mensajeUser, user);
                 Console.WriteLine("hols" + email);
+                ViewData["Mensaje"] = "Tu contraseña ha sido enviada al correo";
+            
         }
+        return RedirectToAction("LogIn","UserAccess");
         }
     }
     
