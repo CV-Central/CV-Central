@@ -7,11 +7,22 @@ namespace CV_Central.Models
 {
     public class ExternalAuthentication
     {
+        /* ------ */
         public int Id { get; set; }
-        public int UserId { get; set; }
-        public string Provider { get; set; }
-        public string ProviderKey { get; set; }
-        public DateTime CreateAt {get; set;} 
-        public User User { get; set; }
+
+        /* ------ */
+        public int? UserId { get; set; }
+
+        /* ------ */
+        public string? Provider { get; set; }
+
+        /* ------ */
+        public string? ProviderKey { get; set; }
+
+        /* ------ */
+        public DateTime? CreateAt {get; set;} 
+
+        /* ------ */
+        public User? User { get; set; }
     }
 }
