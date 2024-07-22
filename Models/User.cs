@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CV_Central.Models{
+namespace CV_Central.Models {
     public class User{
         /* ------- */
         public int Id {get; set;}

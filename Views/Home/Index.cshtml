@@ -19,6 +19,7 @@
 </head>
 <body>
     <main>
+        <div class="subtitles">
         <h2>Bienvenido, @Model.Name</h2>
         
         <div class="menu">
@@ -26,14 +27,10 @@
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"><path fill="#ffffff" d="m210.78 39.25l-130.25-23A16 16 0 0 0 62 29.23l-29.75 169a16 16 0 0 0 13 18.53l130.25 23a16 16 0 0 0 18.54-13l29.75-169a16 16 0 0 0-13.01-18.51m-75.28 92.31a8 8 0 0 1-7.87 6.61a8.3 8.3 0 0 1-1.4-.12l-41.5-7.33A8 8 0 0 1 87.52 115l41.48 7.29a8 8 0 0 1 6.5 9.27m47-24.18a8 8 0 0 1-7.86 6.61a7.6 7.6 0 0 1-1.41-.13l-83-14.65a8 8 0 0 1 2.79-15.76l83 14.66a8 8 0 0 1 6.51 9.27Zm5.55-31.52a8 8 0 0 1-7.87 6.61a8.4 8.4 0 0 1-1.4-.12l-83-14.66a8 8 0 1 1 2.78-15.75l83 14.65a8 8 0 0 1 6.52 9.27Z"/></svg>
                 <p>Ver CV</p>
             </div>
-
-            <div class="menu-btn">
-                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 48 48"><defs><mask id="IconifyId190d7c47d723fba0"><g fill="none" stroke-linecap="round" stroke-width="4"><path stroke="#fff" stroke-linejoin="round" d="M8 15V6a2 2 0 0 1 2-2h28a2 2 0 0 1 2 2v36a2 2 0 0 1-2 2H10a2 2 0 0 1-2-2v-9"/><path stroke="#fff" d="M31 15h3m-6 8h6m-6 8h6"/><path fill="#fff" stroke="#fff" stroke-linejoin="round" d="M4 15h18v18H4z"/><path stroke="#000" stroke-linejoin="round" d="m10 21l6 6m0-6l-6 6"/></g></mask></defs><path fill="#ffffff" d="M0 0h48v48H0z" mask="url(#IconifyId190d7c47d723fba0)"/></svg>
-                <p>Exportar a Excel</p>
-            </div>
         </div>
 
         <h2>Tus datos</h2>
+        </div>
 
         <div class="cards mt-2">
             <div class="cardx card-profile">
@@ -62,6 +59,7 @@
                 </div>
             </div>
 
+            
             <div class="cardx card-info">
                 <h4>Información Personal</h4>
 
@@ -72,15 +70,49 @@
                     <p><span>Teléfono: </span> @Model.Phone</p>
                 </div>
             </div>
-            
+
             <div class="cardx card-info">
-                <h4>Información Personal</h4>
+                <h4>Formación Académica</h4>
 
                 <div class="info-fields">
-                    <p><span>Nombre Completo: </span> @Model.Name</p>
-                    <p><span>Edad: </span> @Model.Age</p>
-                    <p><span>Dirección: </span> @Model.Address</p>
-                    <p><span>Teléfono: </span> @Model.Phone</p>
+                    <p><span>Institución: </span> INEM*</p>
+                    <p><span>Título: </span> Auxiliar*</p>
+                    <p><span>Inicio: </span> 2022*</p>
+                    <p><span>Finalización: </span> 2023*</p>
+                    <p><span>Descripción: </span> Media Técnica Programación*</p>
+                </div>
+            </div>
+
+            <div class="cardx card-info">
+                <h4>Cursos y Certificados</h4>
+
+                <div class="info-fields">
+                    <p><span>Nombre: </span> JavaScript*</p>
+                    <p><span>Institución: </span> Info Center*</p>
+                    <p><span>Inicio: </span> 2023*</p>
+                    <p><span>Finalización: </span> 2024*</p>
+                    <p><span>Descripción: </span> Curos Avanzado JavaScript*</p>
+                </div>
+            </div>
+
+            <div class="cardx card-info">
+                <h4>Habilidades</h4>
+
+                <div class="info-fields">
+                    <p><span>Nombre: </span> HTML</p>
+                    <p><span>Nivel: </span> 6/10</p>
+                </div>
+            </div>
+
+            <div class="cardx card-info">
+                <h4>Experiencia</h4>
+
+                <div class="info-fields">
+                    <p><span>Compañía: </span> Celsia</p>
+                    <p><span>Puesto: </span> DevOps</p>
+                    <p><span>Inicio: </span> 2024</p>
+                    <p><span>Finalización: </span> 2025</p>
+                    <p><span>Descripción: </span> Azure</p>
                 </div>
             </div>
         </div>
