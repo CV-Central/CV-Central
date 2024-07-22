@@ -1,9 +1,9 @@
-body {
-    background-color: #f0f0f0;
-}
+/* main {
+    margin-left: 20px;
+} */
 
-main {
-    margin-left: 15px;
+.subtitles {
+    margin-left: 30px;
 }
 
 .menu {
@@ -37,6 +37,7 @@ main {
 
 .cards {
     display: flex;
+    justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
     width: 95%;
@@ -49,6 +50,7 @@ main {
     background-color: #000;
     color: #fff;
     width: 350px;
+    height: fit-content;
     padding: 15px;
     border-radius: 10px;
 
@@ -67,11 +69,15 @@ main {
     display: flex;
     align-items: center;
     gap: 10px;
-    background-color: #fff;
-    color: #000;
+    background-color: #333335;
+    color: #fff;
     padding: 3px 10px;
     border-radius: 5px;
     cursor: pointer;
+
+    svg path {
+        stroke: #fff;
+    }
 }
 
 .info-fields {

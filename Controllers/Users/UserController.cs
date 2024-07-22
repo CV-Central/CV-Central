@@ -35,7 +35,6 @@ namespace CV_Central.Controllers{
             /* Pasar el Id del usuario y los datos editados del formulario */
             await _userRepository.UserDataU(Convert.ToInt32(userId), userDTO);
             return RedirectToAction("Index", "Home");
-
         }
     }
 }

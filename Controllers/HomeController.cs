@@ -39,6 +39,11 @@ namespace CV_Central.Controllers{
         return View(foundUser);
         }
 
+        public IActionResult Admin()
+        {
+            return View(_userRepository.GetAllUsers());
+        }
+
         // [HttpGet]
         // public async Task<IActionResult> EditData(){
         //     /* Obtener el Id del usuario que se guardó en el Claim */

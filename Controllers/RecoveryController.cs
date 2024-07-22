@@ -29,9 +29,8 @@ namespace CV_Central.Controllers.Recuperacion
                 var subject = "¡Recuperacion de contraseña! | CV Central";
                 var mensajeUser = $"Hola, {user.Name}\nEsta es tu contraseña: {user.Password}.";
                 _emailrepository.SendEmail( user.Email, subject, mensajeUser, user);
-                Console.WriteLine("hols" + email);
+
                 ViewData["Mensaje"] = "Tu contraseña ha sido enviada al correo";
-            
         }
         return RedirectToAction("LogIn","UserAccess");
         }

@@ -17,6 +17,12 @@ namespace CV_Central.App.Services
             _context = context;
         }
 
+        /* Get All Users */
+        public IEnumerable<User> GetAllUsers()
+        {
+            return _context.Users.ToList();
+        }
+
         /* SignUp: POST */
         /* Comprobar que el usuario se haya creado en la base ddatos */
         public async Task<bool> CreateUser(User userRegister){
