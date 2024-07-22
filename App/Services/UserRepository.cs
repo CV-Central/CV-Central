@@ -61,9 +61,9 @@ namespace CV_Central.App.Services
             }
             foundUser.Image = userDTO.Image;
             foundUser.UpdateAt = DateTime.Now;
-           
+            
             _context.Users.Update(foundUser);
-           await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync();
         }
 
 
