@@ -1,0 +1,88 @@
+@model User;
+
+<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+<body>
+    <h2 class="text-center">Editar Información Personal</h2>
+        <form asp-action="EditData" asp-controller="User" method="post">
+            <div class="row">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-md-6">
+                        <div class="form-group mb-3 d-flex justify-content-center">
+                            <img src="@Model.Image" class="border border-black" style="width:50px; height:50px; border-radius:50px">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label>Perfil:</label>
+                            <input asp-for="Image" class="form-control" value="@Model.Image">
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="row mt-5">
+                    <div class="col-md-6">
+                        <div class="from-group mb-3">
+                            <label for="">Nombre:</label>
+                            <input class="form-control" asp-for="Name" value="@Model.Name" required>
+                        </div>
+                        <div class="from-group mb-3">
+                            <label for="">Edad:</label>
+                            <input class="form-control" asp-for="Age" value="@Model.Age" required>
+                        </div>
+                        <div class="from-group mb-3">
+                            <label for="">Contraseña:</label>
+                            <input class="form-control" type="password" asp-for="Password" value="@Model.Password" required>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="from-group mb-3">
+                            <label for="">Número de celular:</label>
+                            <input class="form-control" asp-for="Phone" value="@Model.Phone">
+                        </div>
+
+
+                        <div class="from-group mb-3">
+                            <label for="">Dirección:</label>
+                            <input class="form-control" asp-for="Address" value="@Model.Address" required>
+                        </div>
+
+                    </div>
+
+                    <div class="mt-4 d-grid gap-2 col-2 mx-auto">
+                        <button class="btn btn-success" type="submit">Update</button>
+                        <a class="btn btn-danger" asp-controller="Home" asp-action="Index">Close</a>
+                    </div>
+                </div>
+            </div>
+        </form>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+
+
+
+@*     <div class="container">
+    <div class="card col-md-6">
+        <div class="card-header">
+            <h3 class="text-center">Details</h3>
+        </div>
+        <div class="card-body">
+            <p class="card-text"><b>Id: </b>@Model.Id</p>
+            <p class="card-text"><b>Name: </b>@Model.Name</p>
+            <p class="card-text"><b>Age: </b>@Model.Age</p>
+            <p class="card-text"><b>Email: </b>@Model.Email</p>
+            <p class="card-text"><b>Password: </b>@Model.Password</p>
+            <p class="card-text"><b>Image: </b><img alt="@Model.Image" src="@Model.Image" style="width: 200px;"></p>
+            <p class="card-text"><b>Address: </b>@Model.Address</p>
+            <p class="card-text"><b>Phone: </b>@Model.Phone</p>
+            <p class="card-text"><b>Status: </b>@Model.Status</p>
+            <p class="card-text"><b>CreateAt: </b>@Model.CreateAt</p>
+            <p class="card-text"><b>UpdateAt: </b>@Model.UpdateAt</p>
+            <div>
+                <a class="btn btn-primary" asp-controller="Companies" asp-action="Index">Companies</a>
+            </div>
+        </div>
+    </div>
+</div> *@

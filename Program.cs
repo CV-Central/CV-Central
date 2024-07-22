@@ -8,7 +8,6 @@ using CV_Central.Context;
 using CV_Central.Models;
 using Microsoft.EntityFrameworkCore;
 
-
 Env.Load();
 
 var builder = WebApplication.CreateBuilder(args);
@@ -25,23 +24,32 @@ builder.Services.AddDbContext<CVCentralContext>(options =>
     options.UseMySql(builder.Configuration.GetConnectionString("DefaultConnection"), Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.20-mysql")));
 
 
-//Add services to obtain credentials for authentication and authorization from google provider
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
-})
-.AddCookie()
-.AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
-{
-    options.ClientId = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID");
-    options.ClientSecret =  Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET");
-    options.SaveTokens = true;
-    options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
-    options.ClaimActions.MapJsonKey("urn:google:sub", "sub", "string");
+/* Configuracion de cookies */
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>{
+        options.LoginPath = "/UserAccess/LogIn";
+        options.LogoutPath = "/UserAccess/LogOut";
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    });
     
-});
+builder.Services.Configure<Email>(builder.Configuration.GetSection("EmailSettings"));
+
+//Add services to obtain credentials for authentication and authorization from google provider
+// builder.Services.AddAuthentication(options =>
+// {
+//     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+//     options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+//     options.DefaultChallengeScheme = GoogleDefaults.AuthenticationScheme;
+// })
+// .AddCookie()
+// .AddGoogle(GoogleDefaults.AuthenticationScheme, options =>
+// {
+//     options.ClientId = Environment.GetEnvironmentVariable("GOOGLE_CLIENT_ID");
+//     options.ClientSecret =  Environment.GetEnvironmentVariable("GOOGLE_CLIENT_SECRET");
+//     options.SaveTokens = true;
+//     options.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
+//     options.ClaimActions.MapJsonKey("urn:google:sub", "sub", "string");
+// });
 
 var app = builder.Build();
 
@@ -57,8 +65,8 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 app.UseAuthentication();
+
 // Evitar caché del navegador
 app.Use(async (context, next) =>
 {
@@ -67,6 +75,7 @@ app.Use(async (context, next) =>
     context.Response.Headers["Expires"] = "-1";
     await next();
 });
+
 /* Autenticación */
 app.UseAuthentication();
 app.UseAuthorization();

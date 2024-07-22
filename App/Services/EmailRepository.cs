@@ -37,7 +37,6 @@ namespace CV_Central.App.Services
                 client.Authenticate(_emailSettings.Username, _emailSettings.Password);
                 client.Send(emailMessage);
                 client.Disconnect(true);
-            
             }
         }
 

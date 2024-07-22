@@ -1,10 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace CV_Central.Models {
-    public class User{
-        /* ------- */
-        public int Id {get; set;}
-
+namespace CV_Central.DTOs{
+    public class userUpdateDTO{
         /* ------ */
         [Required(ErrorMessage = "The Name of the user is required.")]
         [MinLength(1, ErrorMessage = "Name must be at least {1} characters.")]
@@ -16,12 +13,6 @@ namespace CV_Central.Models {
         [MinLength(1, ErrorMessage = "Age must be at least {1} characters.")]
         [MaxLength(3, ErrorMessage = "Age must be at most {1} characters.")]
         public string Age {get; set;}
-
-        /* ------- */
-        [Required(ErrorMessage = "The Email is required.")]
-        [MinLength(5, ErrorMessage = "Email must be at least {1} characters.")]
-        [MaxLength(100, ErrorMessage = "Email must be at most {1} characters.")]
-        public string Email {get; set;}
 
         /* ------- */
         [Required(ErrorMessage = "The Password is required.")]
@@ -40,14 +31,6 @@ namespace CV_Central.Models {
 
         /* ------- */
         public string? Image {get; set;}
-
-        /* ------- */
-        public string? Status {get; set;}
-
-        /* ------- */
-        [Required(ErrorMessage = "The date of creation is required.")]
-        [DataType(DataType.Date)]
-        public DateTime CreateAt {get; set;}
 
         /* ------- */
         [Required(ErrorMessage = "The date of update is required.")]
