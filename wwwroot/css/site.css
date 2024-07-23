@@ -21,3 +21,19 @@ a {
   color: #fff;
   text-decoration: none;
 }
+
+.sign-out {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-left: 5px;
+  border-radius: 7px;
+  padding: 5px 7px;
+  transition: all 0.3s;
+
+}
+
+.sign-out:hover {
+  background-color: #c55353;
+}
