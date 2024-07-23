@@ -13,13 +13,18 @@
   font-family: "Figtree Variable";
 }
 
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, h5, p {
   margin: 0px;
 }
 
 a {
   color: #fff;
   text-decoration: none;
+}
+
+/* LAYOUT */
+nav {
+  background-color: #171a27;
 }
 
 .sign-out {
