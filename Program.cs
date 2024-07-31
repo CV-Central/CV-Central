@@ -18,6 +18,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddTransient<UserRepository>();
 builder.Services.AddTransient<EmailRepository>();
 builder.Services.AddTransient<AccountRepository>();
+builder.Services.AddTransient<AcademicFormationRepository>();
+
 
 //Add services to connect at the database
 builder.Services.AddDbContext<CVCentralContext>(options =>
