@@ -13,11 +13,32 @@
   font-family: "Figtree Variable";
 }
 
-h1, h2, h3, h4, p {
+h1, h2, h3, h4, h5, p {
   margin: 0px;
 }
 
 a {
   color: #fff;
   text-decoration: none;
+}
+
+/* LAYOUT */
+nav {
+  background-color: #171a27;
+}
+
+.sign-out {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-left: 5px;
+  border-radius: 7px;
+  padding: 5px 7px;
+  transition: all 0.3s;
+
+}
+
+.sign-out:hover {
+  background-color: #c55353;
 }
